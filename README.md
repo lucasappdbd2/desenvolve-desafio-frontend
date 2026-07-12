@@ -20,7 +20,7 @@ Siga os passos abaixo para configurar e executar o projeto localmente.
 1. **Clone este repositório**
 
    ```bash
-   git clone https://github.com/lucasappdbd/desenvolve-desafio-frontend.git
+   git clone https://github.com/lucasappdbd2/desenvolve-desafio-frontend.git
    ```
 
 2. **Acesse o diretório do projeto**
