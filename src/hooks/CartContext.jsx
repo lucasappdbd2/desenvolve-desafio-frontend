@@ -65,7 +65,7 @@ function reducer(state, action) {
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  /* ───── Funções de manipulação ───── */
+  // Funções de manipulação
   const addItem   = product => dispatch({ type: 'ADD_ITEM', payload: product });
   const removeItem= id     => dispatch({ type: 'REMOVE_ITEM', payload: id });
   const updateQty = (id, quantity) =>
@@ -73,7 +73,7 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => dispatch({ type: 'CLEAR_CART' });
 
-  /* ───── Persistência em localStorage ───── */
+  // Persistência em localStorage
   useEffect(() => {
     const saved = localStorage.getItem(CART_STORAGE_KEY);
     if (saved) {
@@ -87,7 +87,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state));
   }, [state]);
 
-  /* ───── Context value ───── */
+  // Valores do Context Provider
   return (
     <CartContext.Provider
       value={{

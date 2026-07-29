@@ -1,4 +1,3 @@
-/* src/components/ConfirmModal.jsx */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -13,7 +12,7 @@ const Overlay = styled.div`
 `;
 
 const Dialog = styled.div`
-  background:#fff;
+  background: ${props => props.theme.foreground};
   padding:2rem;
   border-radius:8px;
   width:90%;

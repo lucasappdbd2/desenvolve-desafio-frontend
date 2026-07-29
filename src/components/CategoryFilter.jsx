@@ -5,31 +5,32 @@ const FilterContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: .5rem;
-  padding: 2rem;
+  padding: 1rem 2rem;
   align-items: center;
   justify-content: center;
 
   p {
   margin: 0;
+  text-align:center;
   }
 
   button {
     padding: .4rem .8rem;
     border: none;
-    background:#e2e8f0;
-    color:#2d3748;
+    background:${props => props.theme.secondary};
+    color:${props => props.theme.text};
     cursor:pointer;
     border-radius: 4px;
     font-size:.9rem;
     
-    &.active, &:hover { background:#805ad5; color:white; }
+    &.active, &:hover { background:${props => props.theme.primary}; color:white; }
   }
 `;
 
 export default function CategoryFilter({ categories = [], selected, onSelect }) {
   return (
     <FilterContainer>
-      <p>Selecionar Categoria:</p>
+      <p style={{ fontWeight:600 }}>Selecionar Categoria:</p>
       {/* Botão “Todos” */}
       <button
         className={!selected ? 'active' : ''}

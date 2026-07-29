@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import useCart from '../hooks/useCart';
 import { useState } from 'react';
+import Footer from '../components/Footer';
 import ConfirmModal from '../components/ConfirmModal';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { ThemeContext } from '../hooks/ThemeContext';
 
 const Container = styled.div`
   padding:2rem;
@@ -11,16 +14,27 @@ const Container = styled.div`
 
 const Logo = styled.div`
   display:flex;
+  flex-wrap: wrap;
   align-items:center;
   text-decoration:none;
-  color:#333;
+  color:${props => props.theme.text};
   gap: 1rem;
+  justify-content: center;
+
+  h2 {
+    text-align: center;
+  }
 `;
 
 const Table = styled.table`
   width:100%;
   border-collapse:collapse;
   margin-top:1rem;
+
+  @media (max-width:700px) {
+    display:block;
+    overflow-x:auto;
+  }
 `;
 
 const Img = styled.img`
@@ -33,26 +47,72 @@ const ProductLink = styled(Link)`
 
   &:hover {
     text-decoration: underline;
-    color: #805ad5;
+    color: ${props => props.theme.primary};
   }
 `;
 
-const Th = styled.th`border-bottom:1px solid #e2e8f0; text-align:center; padding:.5rem;`;
-const Td = styled.td`padding:.5rem; text-align:center; max-width:200px; min-width:100px;`;
+const Th = styled.th`border-bottom:1px solid ${props => props.theme.secondary}; border-top:1px solid ${props => props.theme.secondary}; text-align:center; padding:.5rem;`;
+const Td = styled.td`border-bottom:1px solid ${props => props.theme.secondary}; padding:.5rem; text-align:center; max-width:200px; min-width:100px;`;
 
+const ButtonQtd = styled.button`
+  padding: .2rem .4rem;
+  margin: .3rem;
+  border: none;
+  background: ${props => props.theme.foreground};
+  color: ${props => props.theme.text};
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+`;
+
+const ButtonRemover = styled.button`
+  padding: .4rem .8rem;
+  margin: .3rem;
+  border: none;
+  background: #e53e3e;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+`;
+
+const Wrapper = styled.div`
+  display:flex;
+  flex-direction:column;
+  min-height:calc(100vh - 5.5rem);
+
+  @media (max-width: 680px) {
+    min-height:calc(100vh - 8.0rem);
+  }
+`;
+
+const Content = styled.div`
+  flex:1;
+  display:flex;
+  flex-direction:column;
+`;
 
 export default function CartPage() {
   const { items, total, removeItem, updateQty, clearCart} = useCart();
   const [showClearModal, setShowClearModal] = useState(false);
 
   if (items.length === 0) return (
-    <Container>
-      <Logo>
-        <FaShoppingCart size={24} />
-        <h2>Carrinho de Compras</h2>
-      </Logo>
-      
-      Seu carrinho está vazio.</Container>);
+    <Wrapper>
+      <Content>
+        <Container>
+          <Logo>
+            <FaShoppingCart size={24} />
+            <h2>Carrinho de Compras</h2>
+          </Logo>
+
+          <div style={{ display: 'flex', justifyContent: 'center',  textAlign: 'center'}}>
+            <p style={{ padding: '2rem' }}>Seu carrinho está vazio.</p>
+          </div>    
+        </Container>
+      </Content>
+      <Footer />
+    </Wrapper>
+  );
 
   /* ---------- Helpers de incremento/decremento ---------- */
   const increment = (id, currentQty) => updateQty(id, currentQty + 1);
@@ -60,114 +120,80 @@ export default function CartPage() {
     currentQty > 1 ? updateQty(id, currentQty - 1) : removeItem(id); // se chegar a 0 → remove
 
   return (
-    <Container>
-      <Logo>
-        <FaShoppingCart size={24} />
-        <h2>Carrinho de Compras</h2>
-      </Logo>    
+    <Wrapper>
+      <Content>
+        <Container>
+          <Logo>
+            <FaShoppingCart size={24} />
+            <h2>Carrinho de Compras</h2>
+          </Logo>    
 
-      <Table>
-        <thead>
-          <tr>
-            <Th colSpan={2}>Produto</Th>
-            <Th>Preço</Th>
-            <Th>Qtd.</Th>
-            <Th>Total</Th>
-            <Th></Th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map(i => (
-            <tr key={i.id}>
-              <Td><Img src={i.image} alt={i.title}/></Td>
-              <Td><ProductLink to={`/product/${i.id}`}>{i.title}</ProductLink></Td>
-              <Td>R$ {Number(i.price).toFixed(2)}</Td>
+          <Table>
+            <thead>
+              <tr>
+                <Th colSpan={2}>Produto</Th>
+                <Th>Preço</Th>
+                <Th>Qtd.</Th>
+                <Th>Total</Th>
+                <Th></Th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map(i => (
+                <tr key={i.id}>
+                  <Td><Img src={i.image} alt={i.title}/></Td>
+                  <Td><ProductLink to={`/product/${i.id}`}>{i.title}</ProductLink></Td>
+                  <Td>R$ {Number(i.price).toFixed(2)}</Td>
 
-              {/* Botões + / – */}
-              <Td>
-                <button
-                  onClick={() => decrement(i.id, i.quantity)}
-                  style={{
-                    padding: '.2rem .4rem',
-                    marginRight: '.3rem',
-                    border: 'none',
-                    background: '#e53e3e',
-                    color: 'white',
-                    cursor: 'pointer',
-                    borderRadius: '4px',
-                    fontSize: '1.2rem'
-                  }}
-                >–</button>
+                  {/* Botões + / – */}
+                  <Td>
+                    <ButtonQtd
+                      onClick={() => decrement(i.id, i.quantity)}>–</ButtonQtd>
 
-                <span>{i.quantity}</span>
+                    <span>{i.quantity}</span>
 
-                <button
-                  onClick={() => increment(i.id, i.quantity)}
-                  style={{
-                    padding: '.2rem .4rem',
-                    marginLeft: '.3rem',
-                    border: 'none',
-                    background: '#38a169',
-                    color: 'white',
-                    cursor: 'pointer',
-                    borderRadius: '4px',
-                    fontSize: '1.2rem'
-                  }}
-                >+</button>
-              </Td>
+                    <ButtonQtd
+                      onClick={() => increment(i.id, i.quantity)}>+</ButtonQtd>
+                  </Td>
 
-              <Td>R$ {(i.price * i.quantity).toFixed(2)}</Td>
-              <Td>
-                <button
-                  onClick={() => removeItem(i.id)}
-                  style={{
-                    border: 'none',
-                    background: '#718096',
-                    color: 'white',
-                    cursor: 'pointer',
-                    padding: '.4rem .8rem',
-                    borderRadius: '4px',
-                  }}
-                >
-                  Remover
-                </button>
-              </Td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+                  <Td>R$ {(i.price * i.quantity).toFixed(2)}</Td>
+                  <Td>
+                    <ButtonRemover
+                      onClick={() => removeItem(i.id)}>
+                      Remover Item
+                    </ButtonRemover>
+                  </Td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
 
-      <h3 style={{ marginTop: '1.5rem' }}>
-        Total: R$ {total.toFixed(2)}
-      </h3>
+          <h3 style={{ marginTop: '1.5rem' }}>
+            Total: R$ {total.toFixed(2)}
+          </h3>
 
-      <button
-        onClick={() => setShowClearModal(true)}
-        style={{
-          marginTop: '.8rem',
-          border: 'none',
-          background: '#718096',
-          color: 'white',
-          cursor: 'pointer',
-          padding: '.6rem 1.2rem',
-          borderRadius: '4px',
-        }}
-      >
-        Limpar carrinho
-      </button>
+          <ButtonRemover
+            onClick={() => setShowClearModal(true)}>
+            Limpar Carrinho
+          </ButtonRemover>
 
-      {/* Modal de confirmação */}
-      {showClearModal && (
-        <ConfirmModal
-          title="Tem certeza que deseja limpar o carrinho?"
-          onConfirm={() => {
-            clearCart();
-            setShowClearModal(false);
-          }}
-          onCancel={() => setShowClearModal(false)}
-        />
-      )}
+          {/* Modal de confirmação */}
+          {showClearModal && (
+            <ConfirmModal
+              title="Tem certeza que deseja limpar o carrinho?"
+              onConfirm={() => {
+                clearCart();
+                setShowClearModal(false);
+              }}
+              onCancel={() => setShowClearModal(false)}
+            />
+          )}        
 
-    </Container>
+        </Container>
+        
+      </Content>
+      <Footer />
+    </Wrapper>
+    
   );
 }

@@ -3,8 +3,8 @@ import { FaGithub } from 'react-icons/fa';
 
 const FooterContainer = styled.footer`
   padding: 2rem 0;
-  background:#f8fafc;
-  color:#4a5568;
+  background:${props => props.theme.foreground};
+  color:${props => props.theme.text};
   font-size:.9rem;
 
   box-shadow: 0 -2px 6px rgba(0,0,0,.1);
@@ -13,7 +13,7 @@ const FooterContainer = styled.footer`
   align-items:center;
 
   a {
-    color:#4a5568;
+    color:${props => props.theme.text};
     text-decoration:none;
     display:inline-flex;
     align-items:center;
