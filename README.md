@@ -7,7 +7,9 @@
 
 Este é um projeto em *React* que utiliza *Styled Components* e consumo de API através da plataforma *FakeStoreAPI*.
 
-Siga os passos abaixo para configurar e executar o projeto localmente.
+### ▶️ Live Demo
+
+É possível conferir o projeto funcionando diretamente neste *link*: [ GitHub Pages 🔗](https://lucasappdbd2.github.io/desenvolve-desafio-frontend/) .
 
 ### ✅ Pré-requisitos
 
@@ -15,7 +17,10 @@ Siga os passos abaixo para configurar e executar o projeto localmente.
 - **npm** - versão 11.13.0 ou superior
 - **Git**
 
+
 ### 🚀 Como executar o projeto localmente
+
+Siga os passos abaixo para configurar e executar o projeto localmente.
 
 1. **Clone este repositório**
    ```bash
