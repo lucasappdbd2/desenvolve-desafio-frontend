@@ -101,7 +101,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   cursor: pointer;
   border-radius: 4px;
   &:hover{background:${e=>e.theme.accent};}
-`;function Zo({product:e}){let{addItem:t}=Eo();return(0,B.jsx)(In,{to:`/product/${e.id}`,style:{textDecoration:`none`,color:"${props => props.theme.secondary}"},children:(0,B.jsxs)(Ko,{children:[(0,B.jsx)(qo,{src:e.image,alt:e.title}),(0,B.jsx)(Jo,{children:e.title}),(0,B.jsxs)(Yo,{children:[`R$ `,Number(e.price).toFixed(2)]}),(0,B.jsx)(Xo,{onClick:n=>{n.preventDefault(),n.stopPropagation(),t(e)},children:`Adicionar ao Carrinho`})]})})}var Qo=F.div`  
+`;function Zo({product:e}){let{addItem:t}=Eo();return(0,B.jsx)(In,{to:`/desenvolve-desafio-frontend/product/${e.id}`,style:{textDecoration:`none`,color:"${props => props.theme.secondary}"},children:(0,B.jsxs)(Ko,{children:[(0,B.jsx)(qo,{src:e.image,alt:e.title}),(0,B.jsx)(Jo,{children:e.title}),(0,B.jsxs)(Yo,{children:[`R$ `,Number(e.price).toFixed(2)]}),(0,B.jsx)(Xo,{onClick:n=>{n.preventDefault(),n.stopPropagation(),t(e)},children:`Adicionar ao Carrinho`})]})})}var Qo=F.div`  
   display: flex;
   flex-wrap: wrap;
   gap: .5rem;
