@@ -39,18 +39,6 @@ const Button = styled.button`
   &:hover{background:${props => props.theme.accent};}
 `;
 
-const ButtonUsers = styled.button`
-  color: ${props => props.theme.text};
-  width:100%;
-  padding:.75rem .9rem;
-  background: ${props => props.theme.background};
-  border-radius:4px;
-  border:1px solid ${props => props.theme.secondary};
-  cursor:pointer;
-  margin-top:1rem;
-  &:hover{background:${props => props.theme.accent};}
-`;
-
 const Wrapper = styled.div`
   display:flex;
   flex-direction:column;
@@ -68,41 +56,7 @@ const Content = styled.div`
   padding: 2rem;
 `;
 
-const ErrorMsg = styled.p`color:red;text-align:center;margin-top:2rem;`;
-
-// Modal
-const Overlay = styled.div`
-  position:fixed;
-  inset:0; background:rgba(0,0,0,.4);
-  display:flex; align-items:center; justify-content:center; z-index:1000;
-`;
-const ModalBox = styled.div`
-  background:${props => props.theme.background}; padding:2rem; border-radius:8px; max-width:360px; width:25rem;
-  position:relative;
-  box-shadow:0 4px 12px rgba(0,0,0,.15);
-
-    a {
-    color: ${props => props.theme.primary};
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-
-    &:hover {
-      opacity: .7;
-    }
-  }
-`;
-
-const CloseBtn = styled.button`
-  background: none;
-  border: none;
-  color: ${props => props.theme.text};
-  font-size: 1.2rem;
-  position: absolute;
-  top: .5rem;
-  right: .5rem;
-  cursor: pointer;
-`;
+const ErrorMsg = styled.p`color:red;text-align:center;margin-top:2rem;margin-bottom:0;`;
 
 export default function LoginPage() {
   const { login } = useContext(AuthContext);
@@ -113,35 +67,11 @@ export default function LoginPage() {
   const [password, setPassword]    = useState('');
   const [error, setError]          = useState('');
 
-  /* Modal “ver lista de usuários” */
-  const [showHelp, setShowHelp]   = useState(false);
-  const [users, setUsers]         = useState([]);
-  const [loadingUsers, setLoadingUsers] = useState(false);
-
   async function handleSubmit(e) {
     e.preventDefault();
     const ok = await login({ email, password });
     if (ok) navigate('/');
     else setError('E‑mail ou senha inválidos.');
-  }
-
-  /* Abrir / Fechar “lista de usuários” */
-  async function toggleHelp() {
-    if (!showHelp && users.length === 0) {
-      setLoadingUsers(true);
-      try {
-        const res = await fetch('https://fakestoreapi.com/users');
-        const data = await res.json();
-        // Mantém apenas id, email e password (já existem no JSON)
-        setUsers(data.map(u => ({ id: u.id, email: u.email, password: u.password })));
-      } catch (err) {
-        console.error(err);
-        alert('Erro ao carregar a lista de usuários.');
-      } finally {
-        setLoadingUsers(false);
-      }
-    }
-    setShowHelp(!showHelp);
   }
 
   return (
@@ -174,39 +104,6 @@ export default function LoginPage() {
 
           {error && <ErrorMsg>{error}</ErrorMsg>}
 
-          {/* Botão “ver lista de usuários”*/}
-          <ButtonUsers
-            onClick={toggleHelp}
-          >
-            Ver lista de usuários e senhas
-          </ButtonUsers>
-
-          {/* Modal lista de usuários */}
-          {showHelp && (
-            <Overlay onClick={toggleHelp}>
-              <ModalBox onClick={e=>e.stopPropagation()}>
-                <h3 style={{marginBottom:'1rem'}}>Lista de usuários e senhas</h3>
-
-                {loadingUsers ? (
-                  <p>Carregando…</p>
-                ) : (
-                  <ul style={{maxHeight:'300px', overflowY:'auto'}}>
-                    {users.map(u => (
-                      <li key={u.id} style={{marginBottom:'.5rem'}}>
-                        <strong>{u.email}</strong> /{' '}
-                        <code>{u.password}</code>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                <span>Fonte: </span>
-                <a href='https://fakestoreapi.com/users'>https://fakestoreapi.com/users</a>
-
-                <CloseBtn onClick={toggleHelp}>✕</CloseBtn>
-              </ModalBox>
-            </Overlay>
-          )}
         </Container>
       </Content>
       <Footer />
