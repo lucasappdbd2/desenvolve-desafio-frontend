@@ -407,17 +407,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   padding:.75rem .9rem;
   background:${e=>e.theme.primary};color:white;border:none;border-radius:4px;cursor:pointer;font-weight:bold;
   &:hover{background:${e=>e.theme.accent};}
-`,Vs=F.button`
-  color: ${e=>e.theme.text};
-  width:100%;
-  padding:.75rem .9rem;
-  background: ${e=>e.theme.background};
-  border-radius:4px;
-  border:1px solid ${e=>e.theme.secondary};
-  cursor:pointer;
-  margin-top:1rem;
-  &:hover{background:${e=>e.theme.accent};}
-`,Hs=F.div`
+`,Vs=F.div`
   display:flex;
   flex-direction:column;
   min-height:calc(100vh - 5.5rem);
@@ -425,37 +415,9 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   @media (max-width: 680px) {
     min-height:calc(100vh - 8.0rem);
   }
-`,Us=F.div`
+`,Hs=F.div`
   flex:1;
   display:flex;
   flex-direction:column;
   padding: 2rem;
-`,Ws=F.p`color:red;text-align:center;margin-top:2rem;`,Gs=F.div`
-  position:fixed;
-  inset:0; background:rgba(0,0,0,.4);
-  display:flex; align-items:center; justify-content:center; z-index:1000;
-`,Ks=F.div`
-  background:${e=>e.theme.background}; padding:2rem; border-radius:8px; max-width:360px; width:25rem;
-  position:relative;
-  box-shadow:0 4px 12px rgba(0,0,0,.15);
-
-    a {
-    color: ${e=>e.theme.primary};
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-
-    &:hover {
-      opacity: .7;
-    }
-  }
-`,qs=F.button`
-  background: none;
-  border: none;
-  color: ${e=>e.theme.text};
-  font-size: 1.2rem;
-  position: absolute;
-  top: .5rem;
-  right: .5rem;
-  cursor: pointer;
-`;function Js(){let{login:e}=(0,x.useContext)(Do),t=vt(),[n,r]=(0,x.useState)(``),[i,a]=(0,x.useState)(``),[o,s]=(0,x.useState)(``),[c,l]=(0,x.useState)(!1),[u,d]=(0,x.useState)([]),[f,p]=(0,x.useState)(!1);async function m(r){r.preventDefault(),await e({email:n,password:i})?t(`/desenvolve-desafio-frontend`):s(`E‑mail ou senha inválidos.`)}async function h(){if(!c&&u.length===0){p(!0);try{let e=await(await fetch(`https://fakestoreapi.com/users`)).json();d(e.map(e=>({id:e.id,email:e.email,password:e.password})))}catch(e){console.error(e),alert(`Erro ao carregar a lista de usuários.`)}finally{p(!1)}}l(!c)}return(0,B.jsxs)(Hs,{children:[(0,B.jsx)(Us,{children:(0,B.jsxs)(Ls,{children:[(0,B.jsx)(Rs,{children:`Login`}),(0,B.jsxs)(`form`,{onSubmit:m,children:[(0,B.jsx)(zs,{id:`login-email`,type:`email`,placeholder:`E‑mail`,value:n,onChange:e=>r(e.target.value),required:!0}),(0,B.jsx)(zs,{id:`login-password`,type:`password`,placeholder:`Senha`,value:i,onChange:e=>a(e.target.value),required:!0}),(0,B.jsx)(Bs,{type:`submit`,children:`Entrar`})]}),o&&(0,B.jsx)(Ws,{children:o}),(0,B.jsx)(Vs,{onClick:h,children:`Ver lista de usuários e senhas`}),c&&(0,B.jsx)(Gs,{onClick:h,children:(0,B.jsxs)(Ks,{onClick:e=>e.stopPropagation(),children:[(0,B.jsx)(`h3`,{style:{marginBottom:`1rem`},children:`Lista de usuários e senhas`}),f?(0,B.jsx)(`p`,{children:`Carregando…`}):(0,B.jsx)(`ul`,{style:{maxHeight:`300px`,overflowY:`auto`},children:u.map(e=>(0,B.jsxs)(`li`,{style:{marginBottom:`.5rem`},children:[(0,B.jsx)(`strong`,{children:e.email}),` /`,` `,(0,B.jsx)(`code`,{children:e.password})]},e.id))}),(0,B.jsx)(`span`,{children:`Fonte: `}),(0,B.jsx)(`a`,{href:`https://fakestoreapi.com/users`,children:`https://fakestoreapi.com/users`}),(0,B.jsx)(qs,{onClick:h,children:`✕`})]})})]})}),(0,B.jsx)(Ho,{})]})}function Ys(){return(0,B.jsx)(Pn,{children:(0,B.jsx)(ts,{children:(0,B.jsx)(Ao,{children:(0,B.jsx)(To,{children:(0,B.jsx)(Po,{children:(0,B.jsx)(Mo.Consumer,{children:({theme:e})=>(0,B.jsxs)(Ua,{theme:e===`light`?jo:H,children:[(0,B.jsx)(Is,{}),(0,B.jsx)(Bo,{}),(0,B.jsxs)(Kt,{children:[(0,B.jsx)(Wt,{path:`/desenvolve-desafio-frontend`,element:(0,B.jsx)(ds,{})}),(0,B.jsx)(Wt,{path:`/desenvolve-desafio-frontend/product/:id`,element:(0,B.jsx)(ys,{})}),(0,B.jsx)(Wt,{path:`/desenvolve-desafio-frontend/cart`,element:(0,B.jsx)(Fs,{})}),(0,B.jsx)(Wt,{path:`/desenvolve-desafio-frontend/login`,element:(0,B.jsx)(Js,{})})]})]})})})})})})})}(0,ri.createRoot)(document.getElementById(`root`)).render((0,B.jsx)(Ys,{}));
+`,Us=F.p`color:red;text-align:center;margin-top:2rem;margin-bottom:0;`;function Ws(){let{login:e}=(0,x.useContext)(Do),t=vt(),[n,r]=(0,x.useState)(``),[i,a]=(0,x.useState)(``),[o,s]=(0,x.useState)(``);async function c(r){r.preventDefault(),await e({email:n,password:i})?t(`/desenvolve-desafio-frontend`):s(`E‑mail ou senha inválidos.`)}return(0,B.jsxs)(Vs,{children:[(0,B.jsx)(Hs,{children:(0,B.jsxs)(Ls,{children:[(0,B.jsx)(Rs,{children:`Login`}),(0,B.jsxs)(`form`,{onSubmit:c,children:[(0,B.jsx)(zs,{id:`login-email`,type:`email`,placeholder:`E‑mail`,value:n,onChange:e=>r(e.target.value),required:!0}),(0,B.jsx)(zs,{id:`login-password`,type:`password`,placeholder:`Senha`,value:i,onChange:e=>a(e.target.value),required:!0}),(0,B.jsx)(Bs,{type:`submit`,children:`Entrar`})]}),o&&(0,B.jsx)(Us,{children:o})]})}),(0,B.jsx)(Ho,{})]})}function Gs(){return(0,B.jsx)(Pn,{children:(0,B.jsx)(ts,{children:(0,B.jsx)(Ao,{children:(0,B.jsx)(To,{children:(0,B.jsx)(Po,{children:(0,B.jsx)(Mo.Consumer,{children:({theme:e})=>(0,B.jsxs)(Ua,{theme:e===`light`?jo:H,children:[(0,B.jsx)(Is,{}),(0,B.jsx)(Bo,{}),(0,B.jsxs)(Kt,{children:[(0,B.jsx)(Wt,{path:`/desenvolve-desafio-frontend`,element:(0,B.jsx)(ds,{})}),(0,B.jsx)(Wt,{path:`/desenvolve-desafio-frontend/product/:id`,element:(0,B.jsx)(ys,{})}),(0,B.jsx)(Wt,{path:`/desenvolve-desafio-frontend/cart`,element:(0,B.jsx)(Fs,{})}),(0,B.jsx)(Wt,{path:`/desenvolve-desafio-frontend/login`,element:(0,B.jsx)(Ws,{})})]})]})})})})})})})}(0,ri.createRoot)(document.getElementById(`root`)).render((0,B.jsx)(Gs,{}));
